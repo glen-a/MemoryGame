@@ -9,7 +9,7 @@ public interface GameModelInterface {
 
     Boolean didMatchTile(GameModel g, int tileIndex, int previousTileIndex);
 
-    Boolean didFaileToMatchTile(GameModel g, int tileIndex, int previousTileIndex);
+    Boolean didFailToMatchTile(GameModel g, int tileIndex, int previousTileIndex);
 
-    Boolean scoredidUpdate( GameModel g, int newScore);
+    Boolean scoreDidUpdate( GameModel g, int newScore);
 }

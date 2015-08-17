@@ -20,6 +20,7 @@ public class GameModel {
     private Boolean needToCheck;
     private int tilesMatched;
     //listener Reference
+    public GameModelInterface reference;
     private int score;
 
     GameModel(){
@@ -45,6 +46,14 @@ public class GameModel {
         }
 
 
+    }
+
+    public TileData getTile(int i){
+        return tiles.get(i);
+    }
+
+    public int getScore(){
+        return this.score;
     }
 
     void reset(int numTiles, Integer[] images){
@@ -79,12 +88,6 @@ public class GameModel {
 
 
 
-
-
-        //    ArrayList<Integer> myImageList = new ArrayList<Integer>();
-       // myImageList.add(R.drawable.thingOne);
-// later...
-        //myImageView.setImageResouce(myImageList.get(i));
     }
 
     @Override public String toString() {
@@ -95,5 +98,11 @@ public class GameModel {
                 "check score= " + score + ", " +
                 "tilesMatched= " + tilesMatched + ", \n"+
                 "img tiles=" + TextUtils.join("\n", tiles) + "]";
+    }
+
+    final public void pushTileIndex(int index){
+        sLastTapped = lastTapped;
+        lastTapped = index;
+
     }
 }
