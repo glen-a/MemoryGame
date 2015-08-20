@@ -68,7 +68,7 @@ public class GameModel {
         int numImages = 0;
         for(int i=0; i< numTiles; i++){
             tiles.add(new TileData(numImages, images[numImages]));
-//set i++ here and numImages, to i for unique
+            //set i++ here and numImages, to i for unique
             tiles.add(new TileData(numImages, images[numImages]));
             i++;
             numImages++;
@@ -81,10 +81,11 @@ public class GameModel {
         long seed = System.nanoTime();
         Collections.shuffle(tiles, new Random(seed));
 
-        for (int i = 0; i < numTiles; i++) {
+        /*for (int i = 0; i < numTiles; i++) {
 
             Log.v("tiles", tiles.get(i).getID() + " " + tiles.get(i).getIMG().toString());
-        }
+        }*/
+        //reference.scoreDidUpdate(this, score);
 
 
 
@@ -103,6 +104,38 @@ public class GameModel {
     final public void pushTileIndex(int index){
         sLastTapped = lastTapped;
         lastTapped = index;
+        boolean ignore = false;
 
+        //check if tapped is the same tile, ignore imput if so
+        if(sLastTapped==index) {
+            ignore = true;
+            sLastTapped=-1;
+            //lastTapped=-1;
+
+        }
+        else{ //was not the same tile, so go ahead
+            ignore = false;
+        }
+
+        if(!ignore) {
+            if (needToCheck) {
+                if (tiles.get(sLastTapped).getIMG() == tiles.get(lastTapped).getIMG()) {
+                    reference.didMatchTile(this, lastTapped, sLastTapped);
+                    score += 200;
+                    tilesMatched++;
+                    if (tilesMatched == tiles.size() / 2) {
+                        reference.gameDidComplete(this);
+                    }
+                } else {
+                    reference.didFailToMatchTile(this, lastTapped, sLastTapped);
+                    score -= 100;
+                }
+                reference.scoreDidUpdate(this, score);
+                sLastTapped = lastTapped = -1;
+                needToCheck = false;
+            } else {
+                needToCheck = true;
+            }
+        }
     }
 }

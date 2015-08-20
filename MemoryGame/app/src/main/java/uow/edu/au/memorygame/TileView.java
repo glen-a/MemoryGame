@@ -34,10 +34,6 @@ public class TileView extends LinearLayout{
         //here to change image
         image = R.drawable.baldhill;
 
-
-
-       // imageView.setImageResource(defaultImage);
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,9 +67,12 @@ public class TileView extends LinearLayout{
     }
 
     public void hideTile(){
-        this.setVisibility(GONE);
+        this.setVisibility(INVISIBLE);
     }
 
 
+    public android.widget.ImageView getImageView() {
+        return imageView;
+    }
 }
 
